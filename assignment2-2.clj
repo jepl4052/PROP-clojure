@@ -15,7 +15,7 @@
   `(~setSorting ~order (~setConditions ~conditions (~setColumns ~columns ~list)))
 )
 
-(def persons '({:id 1 :name "olle" :height 180} {:id 2 :name "anna" :height 175} {:id 3 :name "isak" :height 185} {:id 4 :name "beatrice" :height 160}))
+(def persons `({:id 1 :name "olle" :height 180} {:id 2 :name "anna" :height 175} {:id 3 :name "isak" :height 185} {:id 4 :name "beatrice" :height 160}))
 
 ;(macroexpand '(select [:id :name] from persons where [:id > 2] orderby :id))
 
