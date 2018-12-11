@@ -9,7 +9,8 @@
 )
 
 (defn setSorting [order list]
-  (sort #(compare (order %1) (order %2)) list))
+  (sort #(compare (order %1) (order %2)) list)
+)
 
 (defmacro select [columns _ list _ conditions _ order]
   `(~setSorting ~order (~setConditions ~conditions (~setColumns ~columns ~list)))
