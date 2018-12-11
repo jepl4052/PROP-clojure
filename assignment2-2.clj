@@ -9,14 +9,21 @@
 )
 
 (defn setSorting [order list]
-  (sort #(compare (order %1) (order %2)) list))
+  (sort #(compare (order %1) (order %2)) list)
+)
 
 (defmacro select [columns _ list _ conditions _ order]
   `(~setSorting ~order (~setConditions ~conditions (~setColumns ~columns ~list)))
 )
 
-(def persons `({:id 1 :name "olle" :height 180} {:id 2 :name "anna" :height 175} {:id 3 :name "isak" :height 185} {:id 4 :name "beatrice" :height 160}))
+(defmacro select-2 [columns _ list _ conditions _ order]
+  `(sort #(compare (~order %1) (~order %2) )(filter #((second ~conditions) (% (first ~conditions)) (last ~conditions)) (map #(select-keys % (into [] ~columns)) ~list)))
+)
 
-;(macroexpand '(select [:id :name] from persons where [:id > 2] orderby :id))
+(def persons `({:id 1 :name "olle" :height 180} {:id 2 :name "anna" :height 175} {:id 3 :name
+"isak" :height 185} {:id 4 :name "beatrice" :height 160}))
+
+;(macroexpand '(select [:id :name] from #{persons} where [:id > 2] orderby :id))
 
 (select [:id :name :height] from persons where [:id <> 1] orderby :height)
+(select-2 [:id :name :height] from persons where [:id <> 1] orderby :height)
