@@ -30,7 +30,7 @@
 (select-2 [:id :name :height] from persons where [:id > 1] orderby :height)
 
 (defn select-3
-    [columns list condition order]
+    [columns _ list _ condition _ order]
     (sort #(compare (order %1) (order %2))
         (filter #((second condition) (% (first condition)) (last condition))
             (map #(select-keys % (into [] columns))
@@ -40,4 +40,4 @@
     )
 )
 
-(select-3 [:id :name :height] persons [:id <> 2] :id)
+(select-3 [:id :name :height] 'from persons 'where [:id <> 2] 'orderby :id)
