@@ -31,11 +31,13 @@
 
 (defn select-3
     [columns list condition order]
-    (filter #((second condition) (% (first condition)) (last condition))
-        (map #(select-keys % (into [] columns))
-            (sort #(compare (order %1) (order %2)) list)
+    (sort #(compare (order %1) (order %2))
+        (filter #((second condition) (% (first condition)) (last condition))
+            (map #(select-keys % (into [] columns))
+                list
+            )
         )
     )
 )
 
-(select-3 [:id :name :height] persons [:id <> 2] :height)
+(select-3 [:id :name :height] persons [:id <> 2] :id)
