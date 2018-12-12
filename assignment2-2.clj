@@ -1,4 +1,5 @@
 (def <> not=)
+(def from nil)
 
 (defn setColumns [columns list]
   (map #(select-keys % (into [] columns)) list)
@@ -40,4 +41,11 @@
     )
 )
 
-(select-3 [:id :name :height] 'from persons 'where [:id <> 2] 'orderby :id)
+(defn select-4
+  [columns _ list _ conditions _ order]
+  (setSorting order (setConditions conditions (setColumns columns list)))
+)
+
+(select-3 [:id :name :height] 'from persons 'where [:id <> 2] 'orderby :height)
+
+(select-4 [:id :name :height] 'from persons 'where [:id <> 2] 'orderby :height)
