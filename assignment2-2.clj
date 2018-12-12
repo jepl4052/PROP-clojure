@@ -26,4 +26,13 @@
 ;(macroexpand '(select [:id :name] from #{persons} where [:id > 2] orderby :id))
 
 (select [:id :name :height] from persons where [:id <> 1] orderby :height)
-(select-2 [:id :name :height] from persons where [:id <> 1] orderby :height)
+
+(select-2 [:id :name :height] from persons where [:id > 1] orderby :height)
+
+(defn select-3
+  [list condition]
+  "this is function"
+  (filter #((second condition) (% (first condition)) (last condition)) list)
+)
+
+(select-3 persons [:id = 2])
